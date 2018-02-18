@@ -36,7 +36,6 @@ function createAPI({ remote }){
   };
 }
 
-
 const types = require('./types');
 
 function createSimulationDataSenderForPayload(payload){
@@ -44,10 +43,9 @@ function createSimulationDataSenderForPayload(payload){
   return function sendSimulationData(socket, arr, timeout = 500){
     if(arr.length <= 0) return;
     console.log(arr);
-    window.setTimeout(sendSimulationData, timeout, socket, arr.splice(1), timeout);
+    setTimeout(sendSimulationData, timeout, socket, arr.splice(1), timeout);
   };
 }
-
 
 function createLocationEvent(id, lastSeen, name){
   return { [id]: { lastSeen, name } };
@@ -71,6 +69,7 @@ const setup = async function(){
     },
     [types.LOCATION_UPDATE_TYPE]: function(payload){
       console.log('Got location update', payload);
+      createSimulationDataSenderForPayload(payload)(io, simulationData);
     }
   };
 
