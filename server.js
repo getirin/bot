@@ -35,12 +35,22 @@ function createAPI({ remote }){
   };
 }
 
-const bots = {};
+const types = {
+  LOCATION_UPDATE_TYPE: 'LOCATION',
+  ORDER_CREATE_TYPE: 'CREATE',
+  ORDER_ACCEPT_TYPE: 'ACCEPT',
+  ORDER_FINISH_TYPE: 'FINISH',
+  REQUEST_CREATE_TYPE: 'REQUEST',
+};
 
 const setup = async function(){
   const config = require('./config').server;
   const api = createAPI({ remote: config.remote });
-  const client = createRedisClient();
+  const client = createRedisClient(config.events.host, config.events.port);
+
+  client.subscribe(config.events.collection, (data) => {
+    console.log(data);
+  });
 
   console.log(await api.login('yengas123', 'asd'));
   await io.listen(config.socket.port);
