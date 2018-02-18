@@ -1,0 +1,31 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "The carrier bot for the getir hackathon 2018 by getir.in",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "node client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getir.in/socket.git"
+  },
+  "keywords": [
+    "bot",
+    "socket.io",
+    "getir",
+    "hackathon",
+    "getir.in"
+  ],
+  "author": "Yengas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/getir.in/socket/issues"
+  },
+  "homepage": "https://github.com/getir.in/socket#readme",
+  "dependencies": {
+    "socket.io": "^2.0.4"
+  }
+}
