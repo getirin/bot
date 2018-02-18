@@ -42,7 +42,7 @@ function createSimulationDataSenderForPayload(payload){
 
   return function sendSimulationData(socket, arr, timeout = 500){
     if(arr.length <= 0) return;
-    console.log(arr);
+    socket.emit('LOCATION', createLocationEvent());
     setTimeout(sendSimulationData, timeout, socket, arr.splice(1), timeout);
   };
 }
@@ -56,7 +56,9 @@ const setup = async function(){
   const api = createAPI({ remote: config.remote });
   const client = await createRedisClient(config.events.host, config.events.port);
   const jwt = createJWTInstance(config.jwt);
-  (await api.login('yengas123', 'asd'));
+  const token = (await api.login('yengas123', 'asd'));
+  const {id, name, userType} = jwt.verify(token);
+  console.log(id, name, userType);
 
   function generateLocationUpdate(location){
     return {};
